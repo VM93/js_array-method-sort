@@ -5,9 +5,8 @@
  */
 function applyCustomSort() {
   [].__proto__.sort2 = function (
-    compareFunction = (a, b) => (a.toString() >= b.toString() ? 1 : -1),
+    compareFunction = (a, b) => (a + '' >= b + '' ? 1 : -1) || 0,
   ) {
-    // write code here
     for (let i = 0; i < this.length; i++) {
       for (let j = i + 1; j < this.length; j++) {
         if (compareFunction(this[i], this[j]) > 0) {
@@ -16,6 +15,12 @@ function applyCustomSort() {
           this[i] = this[j];
           this[j] = temp;
         }
+      }
+    }
+
+    for (let i = 0; i < this.length; i++) {
+      if (this[i] === undefined) {
+        delete this[i];
       }
     }
 
